@@ -12,7 +12,7 @@ type NavBarProps = {
     setCategory: (category: string) => void
 }
 
-const Categories = ["home", "bags", "sneakers", "belt"];
+const Categories = ["home", "bags", "sneakers", "belts"];
 
 export default function NavBar({category, setCategory}: NavBarProps){
     const [isOpen, setIsOpen] = useState(false);
