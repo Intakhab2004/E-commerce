@@ -22,3 +22,30 @@ It demonstrates **reusable UI components**, **sorting**, **filtering**, **pagina
 - **TypeScript** 
 
 ---
+
+## ⚙️ **Installation & Setup**  
+
+Follow these steps to set up the project locally: 
+
+### 1. Clone the repository  
+```bash
+git clone https://github.com/Intakhab2004/E-commerce.git
+cd E-commerce
+```
+
+### 2. Install dependencies
+**For Frontend**
+```bash
+npm install
+```
+
+### 3. Run the Frontend
+  ```bash
+  cd ../
+  npm run dev
+  ```
+The app will run at 👉 http://localhost:3000
+
+### 🌐 Live Demo
+ - **Frontend** Live link ->
+  https://e-commerce-prototype-pi.vercel.app
