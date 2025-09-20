@@ -1,6 +1,7 @@
 "use client"
 
 import { Star } from "lucide-react";
+import { bgColors } from "@/helpers/colorSelector";
 
 
 export type productTypes = {
@@ -17,12 +18,13 @@ export type productTypes = {
 }
 
 type productProps = {
-	product: productTypes
+	product: productTypes,
+	selectedColors: string
 }
 
 const starNumber = Array.from({ length: 5 });
 
-export default function ItemCard({ product }: productProps) {
+export default function ItemCard({ product, selectedColors }: productProps) {
 	const {
 		title,
         price,
@@ -39,7 +41,7 @@ export default function ItemCard({ product }: productProps) {
 	return (
 		<div className="flex flex-col bg-white rounded-xl shadow-md p-3">
 			{/* Image */}
-			<div className="relative w-full h-48 flex justify-center items-center bg-gray-100 rounded-lg">
+			<div className={`relative w-full h-48 flex justify-center items-center ${bgColors[selectedColors]} rounded-lg`}>
 				<img
 					src={imageUrl}
 					alt={title}

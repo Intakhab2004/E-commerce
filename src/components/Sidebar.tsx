@@ -2,20 +2,21 @@
 
 import { ChevronDown, X } from "lucide-react";
 import { useState } from "react";
+import { bgColors } from "@/helpers/colorSelector";
 
 type sidebarProps = {
 	isOpen: boolean,
 	setIsOpen: (isOpen: boolean) => void,
 	selectedBrands: string[],
 	setSelectedBrands: (brands: string[]) => void,
-	selectedColors: string[],
-	setSelectedColors: (colors: string[]) => void,
+	selectedColors: string,
+	setSelectedColors: (colors: string) => void,
 	selectedPrices: string[],
 	setSelectedPrices: (prices: string[]) => void,
 }
 
 const Brands = ["Nike", "Adidas", "Puma", "Skybags", "Vans"];
-const Colors = ["blue", "red", "black", "yellow", "green"];
+const Colors = ["gray", "blue", "red", "pink", "yellow", "green"];
 const Prices = ["$100 - $500", "$500 - $1000", "$1000 - $1500", "$1500 - $2000", "$2000+"];
 
 
@@ -32,12 +33,6 @@ export default function SideBar({
 	const toggleBrand = (brand: string) => {
 		setSelectedBrands(
 			selectedBrands.includes(brand) ? selectedBrands.filter(b => b !== brand) : [...selectedBrands, brand]
-		)
-	}
-
-	const toggleColor = (color: string) => {
-		setSelectedColors(
-			selectedColors.includes(color) ? selectedColors.filter(c => c !== color) : [...selectedColors, color]
 		)
 	}
 
@@ -72,7 +67,7 @@ export default function SideBar({
 	return (
 		<>
 			{/* Desktop Sidebar */}
-			<aside className="hidden md:flex flex-col gap-3 w-[20%] bg-gray-200 p-3 rounded-md mb-6">
+			<aside className={`hidden md:flex flex-col gap-3 w-[20%] ${bgColors[selectedColors]} p-3 rounded-md mb-6`}>
 				{/* Brand */}
 				<div className="bg-gray-50 rounded-lg p-3">
 					<div 
@@ -108,19 +103,23 @@ export default function SideBar({
 								{
 									Colors.map((color) => (
 										<li key={color}>
-											<button
-												onClick={() => toggleColor(color)}
+											<input
+												type="radio"
+												name="color"
+												value={color}
+												onClick={() => setSelectedColors(color)}
 												className={`
-													w-5 h-5 rounded-full border-2
-													${color === "black" ? "bg-black border-gray-400" : ""}
+													appearance-none w-6 h-6 rounded-full border-2 cursor-pointer
+													${color === "pink" ? "bg-pink-500 border-pink-600" : ""}
 													${color === "blue" ? "bg-blue-500 border-blue-600" : ""}
 													${color === "red" ? "bg-red-500 border-red-600" : ""}
 													${color === "yellow" ? "bg-yellow-400 border-yellow-500" : ""}
 													${color === "green" ? "bg-green-500 border-green-600" : ""}
+													${color === "gray" ? "bg-gray-300 border-gray-400" : ""}
 													${selectedColors.includes(color) ? "ring-2 ring-offset-2 ring-blue-600" : ""}
 												`}
 												title={color}
-											></button>
+											/>
 										</li>
 									))
 								}
@@ -204,17 +203,23 @@ export default function SideBar({
 											{
 												Colors.map((color) => (
 													<li key={color}>
-														<button
+														<input
+															type="radio"
+															name="color"
+															value={color}
+															onClick={() => setSelectedColors(color)}
 															className={`
-																w-5 h-5 rounded-full border-2
-																${color === "black" ? "bg-black border-gray-400" : ""}
+																appearance-none w-6 h-6 rounded-full border-2 cursor-pointer
+																${color === "pink" ? "bg-pink-500 border-pink-600" : ""}
 																${color === "blue" ? "bg-blue-500 border-blue-600" : ""}
 																${color === "red" ? "bg-red-500 border-red-600" : ""}
 																${color === "yellow" ? "bg-yellow-400 border-yellow-500" : ""}
 																${color === "green" ? "bg-green-500 border-green-600" : ""}
+																${color === "gray" ? "bg-gray-300 border-gray-400" : ""}
+																${selectedColors.includes(color) ? "ring-2 ring-offset-2 ring-blue-600" : ""}
 															`}
 															title={color}
-														></button>
+														/>
 													</li>
 												))
 											}

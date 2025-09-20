@@ -50,7 +50,7 @@ export default function NavBar({category, setCategory}: NavBarProps){
                     ))
                 }
                 <Link
-                    href="/contact"
+                    href="#"
                     className={`md:text-base lg:text-lg font-semibold ${isActiveLink ? "text-blue-700": "hover:text-blue-400"} transition-all duration-300`}
                 >
                     Contact
@@ -95,7 +95,7 @@ export default function NavBar({category, setCategory}: NavBarProps){
                             ))
                         }
                         <Link
-                            href="/contact"
+                            href="#"
                             className={`text-lg font-semibold capitalize cursor-pointer ${isActiveLink ? "text-blue-700": ""}`}
                         >
                             Contact

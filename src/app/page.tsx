@@ -4,6 +4,7 @@ import Heropage from "@/components/Hero";
 import NavBar from "@/components/NavBar"
 import { useState } from "react";
 import { products } from "@/data/product";
+import Footer from "@/components/Footer";
 
 
 export default function HomePage(){
@@ -21,6 +22,7 @@ export default function HomePage(){
 				setCategory={setCategory}
 			/>
 			<Heropage filteredProducts={filteredProducts}/>
+			<Footer />
 		</div>
 	)
 }

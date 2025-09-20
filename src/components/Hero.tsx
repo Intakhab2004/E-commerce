@@ -6,6 +6,7 @@ import { Filter } from "lucide-react";
 import img1 from "@/assests/img1.png";
 import ItemCard from "./ItemCard";
 import { productTypes } from "./ItemCard";
+import { bgColors } from "@/helpers/colorSelector";
 
 
 export default function Heropage({filteredProducts}: {filteredProducts: productTypes[]}){
@@ -13,10 +14,12 @@ export default function Heropage({filteredProducts}: {filteredProducts: productT
     const [currentPage, setCurrentPage] = useState(1);
     const [sortBy, setSortBy] = useState("name");
     const [sortOrder, setSortOrder] = useState("asc");
+    const [itemsPerPage, setItemsPerPage] = useState(8);
 
     const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-    const [selectedColors, setSelectedColors] = useState<string[]>([]);
+    const [selectedColors, setSelectedColors] = useState<string>("gray");
     const [selectedPrices, setSelectedPrices] = useState<string[]>([]);
+    
 
     // Filtering logic
     const filterItems = filteredProducts.filter((product) => {
@@ -24,9 +27,9 @@ export default function Heropage({filteredProducts}: {filteredProducts: productT
         if(selectedBrands.length > 0 && !selectedBrands.includes(product.brand)) return false;
 
         // Price filter
-        if (selectedPrices.length > 0) {
+        if(selectedPrices.length > 0){
             let match = false;
-            for (let range of selectedPrices) {
+            for(const range of selectedPrices){
                 if(range === "$100 - $500" && product.discountPrice > 100 && product.discountPrice <= 500) match = true;
                 if(range === "$500 - $1000" && product.discountPrice > 500 && product.discountPrice <= 1000) match = true;
                 if(range === "$1000 - $1500" && product.discountPrice > 1000 && product.discountPrice <= 1500) match = true;
@@ -63,7 +66,6 @@ export default function Heropage({filteredProducts}: {filteredProducts: productT
     })
     
     // Pagination logic
-    const itemsPerPage = 8;
     const totalPages = Math.ceil(sortedProducts.length/itemsPerPage);
     const paginatedProducts = sortedProducts.slice(
         (currentPage-1)*itemsPerPage,
@@ -117,7 +119,7 @@ export default function Heropage({filteredProducts}: {filteredProducts: productT
                     </div>
 
                     {/* Sort items bar */}
-                    <div className="w-full flex items-center justify-between bg-gray-200 mt-4 rounded-md p-2 px-4">
+                    <div className={`w-full flex items-center justify-between ${bgColors[selectedColors]} mt-4 rounded-md p-2 px-4`}>
                         <div className="flex items-center gap-2">
                             <label className="text-sm font-semibold mr-3">
                                 Sort by:
@@ -138,6 +140,20 @@ export default function Heropage({filteredProducts}: {filteredProducts: productT
                             >
                                 {sortOrder === "asc" ? "⬆ Asc" : "⬇ Desc"}
                             </button>
+
+                            {/* Show items per page */}
+                            <label className="hidden md:block text-sm font-semibold mr-2 ml-6">
+                                Items per page:
+                            </label>
+                            <select
+                                value={itemsPerPage}
+                                onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                                className="p-2 text-sm text-gray-700 bg-white rounded-lg shadow-sm focus:outline-none cursor-pointer"
+                            >
+                                <option value={6}>6</option>
+                                <option value={8}>8</option>
+                                <option value={10}>10</option>
+                            </select>
                         </div>
                     </div>
 
@@ -148,7 +164,8 @@ export default function Heropage({filteredProducts}: {filteredProducts: productT
                                 paginatedProducts.map((item) => (
                                     <ItemCard 
                                         key={item.id} 
-                                        product={item} 
+                                        product={item}
+                                        selectedColors={selectedColors}
                                     />
                                 ))
                             )
@@ -166,7 +183,7 @@ export default function Heropage({filteredProducts}: {filteredProducts: productT
                     {/* Pagination */}
                     {
                         pageNumberArray.length > 0 && (
-                            <div className="w-full flex justify-center items-center gap-2 my-6 py-2 bg-gray-200 rounded-md">
+                            <div className={`w-full flex justify-center items-center gap-2 my-6 py-2 ${bgColors[selectedColors]} rounded-md`}>
                                 {
                                     pageNumberArray.map((_, i) => (
                                         <button
